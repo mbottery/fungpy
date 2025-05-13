@@ -34,8 +34,7 @@ class AnisotropyGrid:
         else:
             return MPoint(0, 0, 0)
 
-# ✅ Visualisation helpers
-
+# Visualisation helpers
 def plot_anisotropy_2d(grid: AnisotropyGrid, title="Anisotropy Vectors (XY Slice)", save_path=None):
     fig, ax = plt.subplots(figsize=(6, 6))
     ax.set_title(title)
