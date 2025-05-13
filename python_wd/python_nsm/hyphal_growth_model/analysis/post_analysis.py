@@ -18,7 +18,7 @@ def analyse_branching_angles(mycel: Mycel, save_path=None, csv_path=None):
         for child in section.children:
             if section.orientation and child.orientation:
                 dot = section.orientation.dot(child.orientation)
-                dot = max(min(dot, 1.0), -1.0)  # Clamp for safety
+                dot = max(min(dot, 1.0), -1.0)  
                 angle_rad = np.arccos(dot)
                 angles.append(np.degrees(angle_rad))
 
@@ -58,7 +58,7 @@ def vector_angle_deg(v1, v2):
 
 def analyse_tip_orientations(mycel: Mycel, save_path=None, csv_path=None):
     import matplotlib.pyplot as plt
-    from mpl_toolkits.mplot3d import Axes3D  # noqa
+    from mpl_toolkits.mplot3d import Axes3D  
 
     tips = mycel.get_tips()
     if not tips:
