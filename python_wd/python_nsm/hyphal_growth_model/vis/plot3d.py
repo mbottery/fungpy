@@ -2,7 +2,7 @@
 
 import matplotlib.pyplot as plt
 import os
-from mpl_toolkits.mplot3d import Axes3D  # Needed for 3D projection
+from mpl_toolkits.mplot3d import Axes3D 
 from core.mycel import Mycel
 
 def plot_mycel_3d(mycel: Mycel, title="Hyphal Growth in 3D", save_path=None):
