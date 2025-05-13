@@ -12,7 +12,7 @@ hyphal_growth_model_v3/
 │   └── section.py               		# Represents individual growing segments of the mycelium
 │
 ├── compute/                     	# Field aggregation & processing logic
-│   ├── field_aggregator.py   		  # Combines different field sources (nutrients, density)
+│   ├── field_aggregator.py         # Combines different field sources (nutrients, density)
 │   └── processor.py             		# Processes fields & orientations
 │
 ├── io_utils/                   	# Input/output utilities (saving, checkpointing)
