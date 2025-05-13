@@ -32,7 +32,7 @@ hyphal_growth_model_v3/
 │
 ├── vis/                         	# Visualisation & plotting
 │   ├── analyser.py              		# Post-run analysis logic (branch stats etc)
-│   ├── animate_growth.py        	  # Animation of growth over time (MP4)
+│   ├── animate_growth.py        	        # Animation of growth over time (MP4)
 │   ├── animate2d.py             		# 2D animation support (alternative vis)
 │   ├── anisotropy_grid.py       		# Handles anisotropy field grids
 │   ├── density_map.py           		# Density field visualisations (heatmaps)
