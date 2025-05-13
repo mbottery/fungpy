@@ -38,4 +38,4 @@ class Processor:
             grad = source.gradient(req.point)
             total_grad.add(grad)
 
-        return Response(field=total_field, gradient=total_grad.normalise())
+        return Response(field=total_field, gradient=total_grad.normalize())
