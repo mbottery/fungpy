@@ -1,0 +1,65 @@
+{
+  "growth_rate": 1.0,
+  "time_step": 1.0,
+
+  "branch_probability": 0.4,
+  "max_branches": 8,
+  "branch_angle_spread": 180.0,
+  "field_threshold": 0.06,
+  "branch_time_window": 40.0,
+  "branch_sensitivity": 1.0,
+  "optimise_initial_branching": true,
+  "leading_branch_prob": 0.0,
+  "allow_internal_branching": true,
+
+  "autotropism": 1.0,
+  "gravitropism": 0.0,
+  "random_walk": 0.2,
+  "length_scaled_growth": true,
+  "length_growth_coef": 0.1,
+  "curvature_branch_bias": 0.25,
+
+  "direction_memory_blend": 0.2,
+  "field_alignment_boost": 0.2,
+  "field_curvature_influence": 0.2,
+
+  "max_length": 50.0,
+  "max_age": 300.0,
+  "min_tip_age": 10.0,
+  "min_tip_length": 10.0,
+  "die_if_old": false,
+  "die_if_too_dense": true,
+  "min_supported_tips": 16,
+  "max_supported_tips": 10000,
+
+  "density_field_enabled": true,
+  "density_threshold": 0.2,
+  "charge_unit_length": 20.0,
+  "neighbour_radius": 20.0,
+  "density_from_tips": true,
+  "density_from_branches": true,
+  "density_from_all": true,
+
+  "gravi_angle_start": 100.0,
+  "gravi_angle_end": 500.0,
+  "gravi_angle_max": 180.0,
+  "gravi_layer_thickness": 40.0,
+
+  "record_dead_tips": true,
+  "source_config_path": "config/example.json",
+
+  "use_nutrient_field": false,
+  "nutrient_attractors": [ [ [30, 30, 0], 1.0 ] ],
+  "nutrient_repellents": [ [ [-20, -20, 0], -1.0 ] ],
+
+  "nutrient_attraction": 0.0,
+  "nutrient_repulsion": 0.0,
+  "nutrient_attract_pos": "30,30,0",
+  "nutrient_repel_pos": "-20,-20,0",
+  "nutrient_radius": 50.0,
+  "nutrient_decay": 0.05,
+
+  "anisotropy_enabled": false,
+  "anisotropy_vector": [1.0, 0.0, 0.0],
+  "anisotropy_strength": 0.1
+}
