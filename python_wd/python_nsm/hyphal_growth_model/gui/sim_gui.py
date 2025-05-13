@@ -25,7 +25,7 @@ class OptionGUI:
 
         self.max_steps_var = tk.StringVar(value="100")
         self.max_tips_var = tk.StringVar(value="1000")
-        self.output_folder = tk.StringVar(value="outputs")  # ✅ Output folder path
+        self.output_folder = tk.StringVar(value="outputs")  
 
         self.fig = plt.Figure(figsize=(5, 5))
         self.ax = self.fig.add_subplot(111, projection="3d")
@@ -83,17 +83,17 @@ class OptionGUI:
                 self.entries[field] = var
                 row += 1
 
-        # 🧪 Nutrient popup
+        # Nutrient popup
         Button(tabs["Nutrient"], text="🧪 Nutrient Editor", command=self.open_nutrient_editor).grid(column=0, row=row+1, columnspan=2)
 
-        # 🏃 Run tab
+        # Run tab
         sim_tab = tabs["Run"]
         ttk.Label(sim_tab, text="Max Steps").grid(column=0, row=0, sticky="e")
         ttk.Entry(sim_tab, textvariable=self.max_steps_var, width=10).grid(column=1, row=0)
         ttk.Label(sim_tab, text="Max Tips").grid(column=0, row=1, sticky="e")
         ttk.Entry(sim_tab, textvariable=self.max_tips_var, width=10).grid(column=1, row=1)
 
-        # 📂 Output folder entry and browser
+        # Output folder entry and browser
         ttk.Label(sim_tab, text="Output Folder").grid(column=0, row=2, sticky="e")
         ttk.Entry(sim_tab, textvariable=self.output_folder, width=20).grid(column=1, row=2)
         ttk.Button(sim_tab, text="Browse", command=self.browse_folder).grid(column=2, row=2, padx=5)
