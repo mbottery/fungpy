@@ -31,7 +31,7 @@ def analyse_branching_angles(mycel: Mycel, save_path=None, csv_path=None):
 
     if save_path:
         plt.figure()
-        plt.hist(angles, bins=20, colour='royalblue')
+        plt.hist(angles, bins=20, color='royalblue')
         plt.title("Branching Angle Distribution")
         plt.xlabel("Angle (degrees)")
         plt.ylabel("Frequency")
@@ -75,7 +75,7 @@ def analyse_tip_orientations(mycel: Mycel, save_path=None, csv_path=None):
         x, y, z = 0, 0, 0
         u, v, w = tip.orientation.coords
         orientations.append((u, v, w))
-        ax.quiver(x, y, z, u, v, w, length=1.0, normalise=True, colour="purple")
+        ax.quiver(x, y, z, u, v, w, length=1.0, normalise=True, color="purple")
 
     ax.set_xlim([-1, 1])
     ax.set_ylim([-1, 1])
