@@ -38,7 +38,7 @@ def animate_growth(mycel: Mycel, orientator: Orientator, steps=100, interval=200
         for section in mycel.get_all_segments():
             x0, y0 = section.start.coords[:2]
             x1, y1 = section.end.coords[:2]
-            ax.plot([x0, x1], [y0, y1], colour="green", linewidth=1.2)
+            ax.plot([x0, x1], [y0, y1], color="green", linewidth=1.2)
             if section.is_tip and not section.is_dead:
                 ax.plot(x1, y1, "ro", markersize=3)
 
