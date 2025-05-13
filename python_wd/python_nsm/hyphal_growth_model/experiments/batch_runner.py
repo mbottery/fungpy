@@ -5,6 +5,7 @@ import os
 import json
 import csv
 import shutil
+import random
 from datetime import datetime
 from multiprocessing import Pool
 from functools import partial
@@ -72,27 +73,28 @@ def run_batch(config_path):
     print(f"\n✅ All simulations complete. Summary saved to {summary_file}")
 
 
-# Parallel Batch Runner
 def worker(run_cfg, batch_folder):
     run_name = run_cfg.get("name", "unnamed")
     opts = Options(**run_cfg["options"])
     steps = run_cfg.get("steps", 120)
+    seed = run_cfg.get("seed")
 
     timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    sim_folder_name = f"{run_name}_{timestamp}"
+    sim_folder_name = f"{run_name}_seed{seed}_{timestamp}"
     output_dir = os.path.join(batch_folder, sim_folder_name)
     os.makedirs(output_dir, exist_ok=True)
 
     os.environ["BATCH_OUTPUT_DIR"] = output_dir
 
     try:
-        print(f"▶️ [Worker] Running: {run_name} → {output_dir}")
+        print(f"▶️ [Worker] Running: {run_name} (seed={seed}) → {output_dir}")
         simulate(opts, steps)
         return {
             "run_name": run_name,
             "steps": steps,
             "status": "✅ Success",
-            "output_dir": output_dir
+            "output_dir": output_dir,
+            "seed": seed
         }
     except Exception as e:
         print(f"❌ Error in {run_name}: {e}")
@@ -100,7 +102,8 @@ def worker(run_cfg, batch_folder):
             "run_name": run_name,
             "steps": steps,
             "status": f"❌ Failed: {e}",
-            "output_dir": output_dir
+            "output_dir": output_dir,
+            "seed": seed
         }
 
 
@@ -110,19 +113,42 @@ def run_batch_parallel(config_path):
     print(f"🖥️ Detected {num_cores} cores; using {processes} workers.")
 
     batch_config = load_config(config_path)
-
     batch_name = f"batch_parallel_{datetime.now().strftime('%Y%m%d_%H%M%S')}"
     batch_folder = os.path.join("batch_outputs", batch_name)
     os.makedirs(batch_folder, exist_ok=True)
     print(f"📦 Launching parallel batch: {batch_name}")
 
-    shutil.copy(config_path, os.path.join(batch_folder, "batch_config_used.json"))
-    print(f"🗄 Saved batch config to {batch_folder}/batch_config_used.json")
+    # Prepare expanded runs with random seeds
+    all_runs = []
+    used_seeds = set()
+    replicates = batch_config.get("replicates", 1)
 
+    for i, run_cfg in enumerate(batch_config["runs"]):
+        for r in range(replicates):
+            run = json.loads(json.dumps(run_cfg))  # deep copy
+            run_name = run_cfg.get("name", f"run_{i+1}")
+            run["name"] = f"{run_name}_rep{r+1}"
+
+            while True:
+                seed = random.randint(1, 1_000_000)
+                if seed not in used_seeds:
+                    used_seeds.add(seed)
+                    break
+
+            run["options"]["seed"] = seed
+            run["seed"] = seed
+            all_runs.append(run)
+
+    # Save full batch config (including replicates + seeds)
+    with open(os.path.join(batch_folder, "batch_config_used.json"), "w") as f:
+        json.dump({"runs": all_runs}, f, indent=2)
+    print(f"🗄 Saved expanded config with seeds to: batch_config_used.json")
+
+    # Launch pool
     with Pool(processes=processes) as pool:
-        results = pool.map(partial(worker, batch_folder=batch_folder), batch_config["runs"])
+        results = pool.map(partial(worker, batch_folder=batch_folder), all_runs)
 
-    # Save batch summary
+    # Save summary
     summary_file = os.path.join(batch_folder, "batch_summary.csv")
     with open(summary_file, "w", newline="") as f:
         writer = csv.DictWriter(f, fieldnames=results[0].keys())

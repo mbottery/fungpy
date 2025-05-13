@@ -1,4 +1,5 @@
 {
+    "replicates": 5,
     "runs": [
         {
             "name": "Leading Branch Probability = 0.1",
