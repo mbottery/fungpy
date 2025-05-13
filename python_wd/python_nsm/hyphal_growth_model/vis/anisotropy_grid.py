@@ -47,7 +47,7 @@ def plot_anisotropy_2d(grid: AnisotropyGrid, title="Anisotropy Vectors (XY Slice
             vec = grid.field[i, j, 0]
             x = (i * grid.resolution) - grid.width / 2
             y = (j * grid.resolution) - grid.height / 2
-            ax.quiver(x, y, vec[0], vec[1], angles='xy', scale_units='xy', scale=1.0, colour='blue', width=0.002)
+            ax.quiver(x, y, vec[0], vec[1], angles='xy', scale_units='xy', scale=1.0, color='blue', width=0.002)
 
     ax.axis("equal")
     ax.grid(True)
@@ -75,7 +75,7 @@ def plot_anisotropy_3d(grid: AnisotropyGrid, save_path=None):
                 x = (i * grid.resolution) - grid.width / 2
                 y = (j * grid.resolution) - grid.height / 2
                 z = (k * grid.resolution) - grid.depth / 2
-                ax.quiver(x, y, z, vec[0], vec[1], vec[2], length=3.0, normalize=True, colour="blue")
+                ax.quiver(x, y, z, vec[0], vec[1], vec[2], length=3.0, normalize=True, color="blue")
 
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
