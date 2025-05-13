@@ -75,7 +75,7 @@ def run_batch(config_path):
     print(f"\n✅ All simulations complete. Summary saved to {summary_file}")
 
 
-# 🆕 PARALLEL BATCH RUNNER
+# Parallel Batch Runner
 def worker(run_cfg, batch_folder):
     run_name = run_cfg.get("name", "unnamed")
     opts = Options(**run_cfg["options"])
