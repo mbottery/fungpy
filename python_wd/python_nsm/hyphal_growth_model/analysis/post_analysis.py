@@ -75,7 +75,7 @@ def analyse_tip_orientations(mycel: Mycel, save_path=None, csv_path=None):
         x, y, z = 0, 0, 0
         u, v, w = tip.orientation.coords
         orientations.append((u, v, w))
-        ax.quiver(x, y, z, u, v, w, length=1.0, normalise=True, color="purple")
+        ax.quiver(x, y, z, u, v, w, length=1.0, normalize=True, color="purple")
 
     ax.set_xlim([-1, 1])
     ax.set_ylim([-1, 1])
