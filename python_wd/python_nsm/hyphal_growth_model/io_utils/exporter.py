@@ -43,7 +43,7 @@ def export_to_obj(mycel: Mycel, filename="mycelium.obj"):
         v_end = s.end.coords
         vertices.append(v_start)
         vertices.append(v_end)
-        edges.append((2*i+1, 2*i+2))  # OBJ is 1-based
+        edges.append((2*i+1, 2*i+2))  
 
     with open(filename, "w") as f:
         for v in vertices:
@@ -55,7 +55,7 @@ def export_to_obj(mycel: Mycel, filename="mycelium.obj"):
 def export_tip_history(mycel, filename="mycelium_time_series.csv"):
     with open(filename, "w", newline="") as f:
         writer = csv.writer(f)
-        writer.writerow(["time", "x", "y", "z"])  # CSV header
+        writer.writerow(["time", "x", "y", "z"])  
 
         for time, tips in mycel.step_history:
             for x, y, z in tips:
