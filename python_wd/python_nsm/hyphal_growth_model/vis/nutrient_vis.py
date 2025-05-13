@@ -48,12 +48,12 @@ def plot_nutrient_field_3d(opts: Options, ax=None, save_path=None):
     ax.set_zlabel("Z")
 
     for pos, strength in opts.nutrient_attractors:
-        ax.scatter(*pos, colour="green", marker="^", s=40)
-        ax.text(*pos, f"{strength:+.1f}", colour="green", size=8)
+        ax.scatter(*pos, color="green", marker="^", s=40)
+        ax.text(*pos, f"{strength:+.1f}", color="green", size=8)
 
     for pos, strength in opts.nutrient_repellents:
-        ax.scatter(*pos, colour="red", marker="v", s=40)
-        ax.text(*pos, f"{strength:+.1f}", colour="red", size=8)
+        ax.scatter(*pos, color="red", marker="v", s=40)
+        ax.text(*pos, f"{strength:+.1f}", color="red", size=8)
 
     ax.view_init(elev=20, azim=135)
     plt.tight_layout()
