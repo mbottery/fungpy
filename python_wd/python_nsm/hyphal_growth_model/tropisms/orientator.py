@@ -31,14 +31,14 @@ class Orientator:
     def compute(self, section: Section) -> MPoint:
         orientation = section.orientation.copy()
 
-        # 📈 Autotropism
+        # Autotropism
         grad = None
         if self.aggregator:
             _, grad = self.aggregator.compute_field(section.end)
             if grad is not None:
                 orientation.add(grad.scale(self.options.autotropism))
 
-                # ➕ Boost alignment with field gradient
+                # Boost alignment with field gradient
                 if self.options.field_alignment_boost > 0:
                     grad_unit = grad.copy().normalise()
                     dot = orientation.dot(grad_unit)
@@ -47,19 +47,19 @@ class Orientator:
                         orientation.add(boost)
                         print(f"Gradient alignment boost applied: dot={dot:.2f}, boost={boost}")
 
-                # 🌀 Curvature influence from field
+                # Curvature influence from field
                 if self.options.field_curvature_influence > 0:
                     curvature = self.aggregator.compute_field_curvature(section.end)
                     direction = grad.copy().normalise()
                     orientation.add(direction.scale(curvature * self.options.field_curvature_influence))
                     print(f"🌀 Curvature contribution: value={curvature:.3f}, scaled={curvature * self.options.field_curvature_influence:.3f}")
 
-        # 🧠 Density-based avoidance
+        # Density-based avoidance
         if self.options.die_if_too_dense and self.density_grid:
             density_grad = self.density_grid.get_gradient_at(section.end)
             orientation.subtract(density_grad)
 
-        # 🌍 Gravitropism
+        # Gravitropism
         if self.options.gravitropism > 0:
             z = section.end.coords[2]
             if z < self.options.gravi_angle_start:
@@ -72,7 +72,7 @@ class Orientator:
             gravity_vec = MPoint(0, -1, 0).scale(strength)
             orientation.add(gravity_vec)
 
-        # 🧲 Nutrient fields
+        # Nutrient fields
         for nutrient in self.nutrient_sources:
             delta = nutrient.copy().subtract(section.end)
             dist = delta.magnitude()
@@ -89,7 +89,7 @@ class Orientator:
                         delta.copy().normalise().scale(self.options.nutrient_repulsion * influence)
                     )
 
-        # 🧭 Global or Grid-Based Anisotropy
+        # Global or Grid-Based Anisotropy
         if self.options.anisotropy_enabled:
             if self.anisotropy_grid:
                 dir_vec = self.anisotropy_grid.get_direction_at(section.end)
@@ -100,12 +100,12 @@ class Orientator:
 
             orientation.add(dir_vec.scale(self.options.anisotropy_strength))
 
-        # 🎲 Random walk
+        # Random walk
         if self.options.random_walk > 0:
             rand = np.random.normal(0, 1, 3)
             orientation.add(MPoint(*rand).normalise().scale(self.options.random_walk))
 
-        # 🧠 Directional memory blending (EMA-style)
+        # Directional memory blending (EMA-style)
         if self.options.direction_memory_blend > 0 and section.orientation:
             blend = self.options.direction_memory_blend
             orientation = (
