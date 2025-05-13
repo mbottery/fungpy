@@ -19,7 +19,7 @@ class Mycel:
         """Initialise the simulation with a single tip."""
         root = Section(start=location, orientation=orientation)
         root.options = self.options
-        root.set_field_aggregator(None)  # Will be set externally in setup
+        root.set_field_aggregator(None)  
         self.sections.append(root)
 
     def step(self):
@@ -31,7 +31,7 @@ class Mycel:
 
         tip_count = len(self.get_tips())
 
-        # ✅ 1. Grow & update existing sections
+        # Grow & update existing sections
         for section in self.sections:
             if section.is_dead:
                 continue
@@ -42,7 +42,7 @@ class Mycel:
             if section.is_tip and not section.is_dead:
                 print(f"    🌱 TIP @ {section.end} (len={section.length:.2f}, age={section.age:.2f})")
 
-        # ✅ 2. Run destructor logic: age, density, nutrient, and neighborhood checks
+        # Run destructor logic: age, density, nutrient, and neighborhood checks
         for section in self.sections:
             if not section.is_tip or section.is_dead:
                 continue
@@ -84,7 +84,7 @@ class Mycel:
         
         print(f"🛠️ After destructor: Tip {section.end} | is_tip={section.is_tip} | is_dead={section.is_dead}")
 
-        # ✅ 3. Try branching
+        # Try branching
         for section in self.sections:
             if section.is_dead:
                 continue
@@ -97,7 +97,7 @@ class Mycel:
 
         self.sections.extend(new_sections)
         
-        # ✅ Snapshot tip positions
+        # Snapshot tip positions
         step_snapshot = [
             {
                 "time": self.time,
@@ -112,7 +112,7 @@ class Mycel:
         self.time_series.append(step_snapshot)
         self.time += self.options.time_step
 
-        # ✅ ✅ NEW: max_supported_tips pruning logic
+        # NEW: max_supported_tips pruning logic
         if hasattr(self.options, "max_supported_tips") and self.options.max_supported_tips > 0:
             active_tips = self.get_tips()
             if len(active_tips) > self.options.max_supported_tips:
@@ -132,7 +132,7 @@ class Mycel:
         tip_count = len(self.get_tips())
         print(f"  🔚 STEP END: {tip_count} active tips")
         
-        # 🧾 Log positions of all active tips at this step
+        # Log positions of all active tips at this step
         tip_data = [(tip.end.coords[0], tip.end.coords[1], tip.end.coords[2]) for tip in self.get_tips()]
         self.step_history.append((self.time, tip_data))
 
