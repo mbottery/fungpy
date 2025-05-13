@@ -16,7 +16,7 @@ def plot_mycel(mycel: Mycel, title="Hyphal Network", save_path=None):
         for start, end in section.get_subsegments():
             x0, y0 = start.coords[:2]
             x1, y1 = end.coords[:2]
-            ax.plot([x0, x1], [y0, y1], colour="green", linewidth=1.5)
+            ax.plot([x0, x1], [y0, y1], color="green", linewidth=1.5)
 
         if section.is_tip and not section.is_dead:
             x_tip, y_tip = section.end.coords[:2]
