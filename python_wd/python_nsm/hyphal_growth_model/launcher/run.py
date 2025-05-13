@@ -4,7 +4,6 @@ import argparse
 from config.sim_config import load_options_from_json, load_options_from_cli
 from gui.sim_gui import OptionGUI
 from main import simulate
-#from experiments.batch_runner import run_parameter_sweep, plot_sweep
 
 def run_gui():
     print("🖥️ Launching GUI mode...")
