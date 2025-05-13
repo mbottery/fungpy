@@ -13,7 +13,7 @@ def plot_mycel_3d_interactive(mycel: Mycel, save_path="outputs/mycelium_3d_inter
             trace = go.Scatter3d(
                 x=xs, y=ys, z=zs,
                 mode='lines',
-                line=dict(width=2, colour='green'),
+                line=dict(width=2, color='green'),
                 showlegend=False
             )
             traces.append(trace)
@@ -23,7 +23,7 @@ def plot_mycel_3d_interactive(mycel: Mycel, save_path="outputs/mycelium_3d_inter
             tip_marker = go.Scatter3d(
                 x=[x], y=[y], z=[z],
                 mode='markers',
-                marker=dict(size=4, colour='red'),
+                marker=dict(size=4, color='red'),
                 name='Tip'
             )
             traces.append(tip_marker)
