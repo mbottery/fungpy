@@ -11,8 +11,8 @@ def plot_mycel(mycel: Mycel, title="Hyphal Network", save_path=None):
     ax.set_xlabel("X")
     ax.set_ylabel("Y")
 
+    # Plot all subsegments instead of just start → end
     for section in mycel.get_all_segments():
-        # ✅ Plot all subsegments instead of just start → end
         for start, end in section.get_subsegments():
             x0, y0 = start.coords[:2]
             x1, y1 = end.coords[:2]
