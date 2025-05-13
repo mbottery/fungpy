@@ -25,7 +25,7 @@ class Section:
         self.options = None
         self.field_aggregator = None
 
-        self.direction_memory = self.orientation.copy()  # ✅ Directional memory
+        self.direction_memory = self.orientation.copy()  
 
     def set_field_aggregator(self, aggregator):
         self.field_aggregator = aggregator
@@ -48,7 +48,7 @@ class Section:
 
         self.subsegments.append((prev_end, self.end.copy()))
 
-        # ✅ Update directional memory (EMA-style)
+        # Update directional memory (EMA-style)
         if self.options and hasattr(self.options, "direction_memory_blend"):
             alpha = self.options.direction_memory_blend
             self.direction_memory = (
