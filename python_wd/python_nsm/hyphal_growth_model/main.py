@@ -1,8 +1,7 @@
 # main.py
 
 import matplotlib
-matplotlib.use("Agg")  # Headless mode for non-GUI environments
-
+matplotlib.use("Agg") 
 import sys
 import os
 import random
@@ -15,12 +14,13 @@ from core.options import Options
 
 from tropisms.orientator import Orientator
 from tropisms.nutrient_field_finder import NutrientFieldFinder
+
 from compute.field_aggregator import FieldAggregator
 
 from io_utils.checkpoint import CheckpointSaver
 from io_utils.autostop import AutoStop
 from io_utils.grid_export import export_grid_to_csv, export_grid_to_png
-from io_utils.exporter import export_to_csv, export_to_obj
+from io_utils.exporter import export_to_csv, export_to_obj, export_tip_history
 
 from control.runtime_mutator import RuntimeMutator
 
@@ -31,13 +31,15 @@ from vis.analyser import SimulationStats, plot_stats
 from vis.nutrient_vis import plot_nutrient_field_2d, plot_nutrient_field_3d
 from vis.anisotropy_grid import AnisotropyGrid, plot_anisotropy_2d, plot_anisotropy_3d
 from vis.animate_growth import animate_growth
+from vis.plotly_3d_export import plot_mycel_3d_interactive
 
 from analysis.stats_summary import summarise
 from analysis.post_analysis import analyse_branching_angles, analyse_tip_orientations
 
+from config.sim_config import load_options_from_json
 
 def setup_simulation(opts):
-    # 🌱 Set random seed for reproducibility
+    # Set random seed for reproducibility
     if hasattr(opts, "seed"):
         print(f"🌱 Setting random seed: {opts.seed}")
         random.seed(opts.seed)
@@ -137,9 +139,6 @@ def generate_outputs(mycel, components, output_dir="outputs"):
     anisotropy_grid = components.get("anisotropy_grid", None)
 
     print(f"📸 Saving all plots to '{output_dir}'...")
-
-    from vis.plotly_3d_export import plot_mycel_3d_interactive
-
     plot_mycel(mycel, title="2D Projection", save_path=f"{output_dir}/mycelium_2d.png")
     plot_mycel_3d(mycel, title="3D Projection", save_path=f"{output_dir}/mycelium_3d.png")
     plot_density(grid, save_path=f"{output_dir}/density_map.png")
@@ -154,7 +153,6 @@ def generate_outputs(mycel, components, output_dir="outputs"):
         plot_anisotropy_2d(anisotropy_grid, save_path=f"{output_dir}/anisotropy_2d.png")
         plot_anisotropy_3d(anisotropy_grid, save_path=f"{output_dir}/anisotropy_3d.png")
 
-    from analysis.post_analysis import analyse_branching_angles, analyse_tip_orientations
     analyse_branching_angles(
         mycel,
         save_path=f"{output_dir}/branching_angles.png",
@@ -170,8 +168,6 @@ def generate_outputs(mycel, components, output_dir="outputs"):
     export_to_csv(mycel, f"{output_dir}/mycelium_time_step.csv", all_time=True)
     export_to_csv(mycel, f"{output_dir}/mycelium_final.csv", all_time=False)
     export_to_obj(mycel, f"{output_dir}/mycelium.obj")
-    
-    from io_utils.exporter import export_tip_history  # ✅ import
     export_tip_history(mycel, f"{output_dir}/mycelium_time_series.csv")
     
     animate_growth(
@@ -187,7 +183,7 @@ def simulate(opts, steps=120):
         for step in range(steps):
             step_simulation(mycel, components, step)
 
-            # 🛠️ DEBUG: Print current tip states before AutoStop
+            # DEBUG: Print current tip states before AutoStop
             print(f"🛠️ DEBUG: Before AutoStop at step {step}")
             print(f"Mycel sections: {len(mycel.sections)}")
             alive_tips = [s for s in mycel.sections if s.is_tip and not s.is_dead]
@@ -196,7 +192,7 @@ def simulate(opts, steps=120):
 
             print(f"🛠️ DEBUG: Alive tips count = {len(alive_tips)}")
 
-            # ✅ Check AutoStop condition
+            # Check AutoStop condition
             if components["autostop"].check(mycel, step):
                 print("🛠️ DEBUG: AutoStop triggered the stop.")
                 break
@@ -204,7 +200,7 @@ def simulate(opts, steps=120):
     except KeyboardInterrupt:
         print("\n🛑 Interrupted by user. Saving final state...")
 
-    # 🆕 Smart output folder detection
+    # Smart output folder detection
     if any("batch_runner.py" in arg for arg in sys.argv):
         # If running from batch_runner.py → place outputs in the batch_outputs folder
         output_dir = os.getenv("BATCH_OUTPUT_DIR", "outputs")
@@ -215,6 +211,5 @@ def simulate(opts, steps=120):
     generate_outputs(mycel, components, output_dir=output_dir)
 
 if __name__ == "__main__":
-    from config.sim_config import load_options_from_json
     opts = load_options_from_json("configs/example.json")
     simulate(opts, steps=120)
