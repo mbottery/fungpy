@@ -9,7 +9,7 @@ from concurrent.futures import ThreadPoolExecutor
 @dataclass
 class Request:
     point: MPoint
-    exclude_ids: List[int] = None  # optional
+    exclude_ids: List[int] = None  
 
 @dataclass
 class Response:
