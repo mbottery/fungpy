@@ -6,12 +6,9 @@ import json
 import csv
 import shutil
 from datetime import datetime
-
 from multiprocessing import Pool
 from functools import partial
-
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
-
 from main import simulate
 from config.sim_config import Options
 
