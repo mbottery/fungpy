@@ -6,7 +6,7 @@ from mpl_toolkits.mplot3d import Axes3D
 from matplotlib.animation import FuncAnimation
 import os
 
-def animate_growth(csv_path="outputs/mycelium_time_series.csv", save_path="outputs/mycelium_growth.mp4", interval=500):
+def animate_growth(csv_path="outputs/mycelium_time_series.csv", save_path="outputs/mycelium_growth.mp4", interval=100):
     df = pd.read_csv(csv_path)
     steps = sorted(df["time"].unique())
     
@@ -32,7 +32,6 @@ def animate_growth(csv_path="outputs/mycelium_time_series.csv", save_path="outpu
 
         ax.scatter(snapshot["x"], snapshot["y"], snapshot["z"], c='green', s=8)
 
-        # Optional: auto scale axes
         ax.set_xlim(df["x"].min(), df["x"].max())
         ax.set_ylim(df["y"].min(), df["y"].max())
         ax.set_zlim(df["z"].min(), df["z"].max())
@@ -50,6 +49,5 @@ def animate_growth(csv_path="outputs/mycelium_time_series.csv", save_path="outpu
 
     plt.close()
 
-# ✅ Run directly for testing
 if __name__ == "__main__":
     animate_growth()
