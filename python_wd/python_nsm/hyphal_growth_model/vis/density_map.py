@@ -86,7 +86,7 @@ def plot_density(grid: DensityGrid, title="Hyphal Density Map", save_path=None):
             -grid.height / 2, grid.height / 2
         ]
 
-    # 🔥 Heatmap with colourbar
+    # Heatmap with colourbar for hyphal density
     cax = ax.imshow(grid_region, origin='lower', cmap='hot', extent=extent, aspect='equal')
     fig.colourbar(cax, ax=ax, label="Density")
 
