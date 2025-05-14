@@ -21,7 +21,7 @@ A 3D simulation of fungal mycelium growth with support for GUI launching, CLI ba
 
 ```bash
 git clone https://github.com/ETancredi/python_nsm.git
-cd hyphal_growth_model
+cd python_nsm/python_wd/python_nsm/hyphal_growth_model
 ```
 
 ### Set up a virtual environment (recommended)
