@@ -234,4 +234,4 @@ def simulate(opts, steps=120,plot = 'True'):
 
 if __name__ == "__main__":
     opts = load_options_from_json("configs/example.json")
-    simulate(opts, steps=120,plot)
+    simulate(opts, steps=120,plot='True')
