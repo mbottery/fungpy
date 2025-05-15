@@ -29,7 +29,7 @@ class Options:
     curvature_branch_bias: float = 0.25 
     
     # Directional memory (EMA decay)
-    direction_memory_blend: float = 0.2  
+    direction_memory_blend: float = 0.1
     field_alignment_boost: float = 0.2  
     field_curvature_influence: float = 0.2
 
@@ -47,7 +47,7 @@ class Options:
     density_field_enabled: bool = True
     density_threshold: float = 0.2
     charge_unit_length: float = 20.0
-    neighbour_radius: float = 20.0
+    neighbour_radius: float = 400.0
     density_from_tips: bool = True
     density_from_branches: bool = True
     density_from_all: bool = True       
