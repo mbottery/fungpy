@@ -163,6 +163,7 @@ def generate_plots(mycel, components, output_dir="outputs"):
     
     animate_growth(
       save_path=f"{output_dir}/mycelium_growth.mp4",
+      csv_path=f"{output_dir}/mycelium_time_series.csv",
       interval = 100 # ms per frame
     )
 
@@ -188,10 +189,6 @@ def generate_outputdata(mycel, components, output_dir="outputs"):
     export_to_obj(mycel, f"{output_dir}/mycelium.obj")
     export_tip_history(mycel, f"{output_dir}/mycelium_time_series.csv")
     
-    animate_growth(
-      csv_path=f"{output_dir}/mycelium_time_series.csv",
-      interval = 100 # ms per frame
-    )
 
 def simulate(opts, steps=120,plot = 'True'):
     mycel, components = setup_simulation(opts)
