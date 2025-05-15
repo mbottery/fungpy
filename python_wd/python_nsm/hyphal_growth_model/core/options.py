@@ -34,11 +34,12 @@ class Options:
     field_curvature_influence: float = 0.2
 
     # Age & Length limitations
+    
     max_length: float = 50.0            
+    die_if_old: bool = False
     max_age: float = 300.0              
     min_tip_age: float = 10.0
     min_tip_length: float = 10.0
-    die_if_old: bool = False
     die_if_too_dense: bool = True
     min_supported_tips: int = 16
     max_supported_tips: int = 1000      
