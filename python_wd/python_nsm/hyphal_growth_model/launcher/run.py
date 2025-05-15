@@ -30,6 +30,7 @@ def parse_args():
     parser.add_argument("--sweep_param", type=str, help="Param to sweep (e.g. branch_probability)")
     parser.add_argument("--sweep_values", nargs="+", type=float, help="Values to sweep (e.g. 0.1 0.2 0.3)")
     parser.add_argument("--sweep_steps", type=int, default=120, help="Steps per sweep simulation")
+    parser.add_argument("--plot", type=bool, default =True, help = "Plot figures")
     return parser.parse_args()
 
 if __name__ == "__main__":
