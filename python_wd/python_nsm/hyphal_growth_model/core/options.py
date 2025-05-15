@@ -23,7 +23,7 @@ class Options:
     # Tropisms
     autotropism: float = 1.0
     gravitropism: float = 0.0
-    random_walk: float = 0.2
+    random_walk: float = 0.4
     length_scaled_growth: bool = True
     length_growth_coef: float = 0.1
     curvature_branch_bias: float = 0.25 
