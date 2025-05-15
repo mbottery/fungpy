@@ -40,7 +40,7 @@ if __name__ == "__main__":
         run_gui()
 
     elif args.mode == "cli":
-        run_cli(config=args.config, steps=args.steps)
+        run_cli(config=args.config, steps=args.steps,plot = args.plot)
 
     elif args.mode == "sweep":
         if not args.sweep_param or not args.sweep_values:
