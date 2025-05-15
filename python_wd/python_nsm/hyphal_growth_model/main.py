@@ -130,8 +130,7 @@ def step_simulation(mycel, components, step):
     
     print(mycel)
 
-def generate_outputs(mycel, components, output_dir="outputs"):
-    os.makedirs(output_dir, exist_ok=True)
+def generate_plot(mycel, components, output_dir="outputs"):
 
     grid = components["grid"]
     stats = components["stats"]
@@ -155,12 +154,31 @@ def generate_outputs(mycel, components, output_dir="outputs"):
 
     analyse_branching_angles(
         mycel,
-        save_path=f"{output_dir}/branching_angles.png",
+        save_path=f"{output_dir}/branching_angles.png"
+    )
+    analyse_tip_orientations(
+        mycel,
+        save_path=f"{output_dir}/tip_orientations.png"
+    )
+    
+    animate_growth(
+      save_path=f"{output_dir}/mycelium_growth.mp4",
+      interval = 100 # ms per frame
+    )
+
+def generate_outputdata(mycel, components, output_dir="outputs"):
+
+    grid = components["grid"]
+    stats = components["stats"]
+    opts = components["opts"]
+    anisotropy_grid = components.get("anisotropy_grid", None)
+
+    analyse_branching_angles(
+        mycel,
         csv_path=f"{output_dir}/branching_angles.csv"
     )
     analyse_tip_orientations(
         mycel,
-        save_path=f"{output_dir}/tip_orientations.png",
         csv_path=f"{output_dir}/orientations.csv"
     )
 
@@ -172,11 +190,10 @@ def generate_outputs(mycel, components, output_dir="outputs"):
     
     animate_growth(
       csv_path=f"{output_dir}/mycelium_time_series.csv",
-      save_path=f"{output_dir}/mycelium_growth.mp4",
       interval = 100 # ms per frame
     )
 
-def simulate(opts, steps=120):
+def simulate(opts,plot, steps=120):
     mycel, components = setup_simulation(opts)
 
     try:
@@ -208,7 +225,11 @@ def simulate(opts, steps=120):
         output_dir = "outputs"
 
     print(f"📂 Saving outputs to: {output_dir}")
-    generate_outputs(mycel, components, output_dir=output_dir)
+    os.makedirs(output_dir, exist_ok=True)
+    if plot:
+        generate_plots(mycel, components, output_dir=output_dir)
+    
+    generate_outputdata(mycel, components, output_dir=output_dir)
 
 if __name__ == "__main__":
     opts = load_options_from_json("configs/example.json")
