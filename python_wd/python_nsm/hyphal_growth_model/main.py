@@ -193,7 +193,7 @@ def generate_outputdata(mycel, components, output_dir="outputs"):
       interval = 100 # ms per frame
     )
 
-def simulate(opts,plot, steps=120):
+def simulate(opts, steps=120,plot = 'True'):
     mycel, components = setup_simulation(opts)
 
     try:
@@ -234,4 +234,4 @@ def simulate(opts,plot, steps=120):
 
 if __name__ == "__main__":
     opts = load_options_from_json("configs/example.json")
-    simulate(opts, steps=120,plot = 'True')
+    simulate(opts, steps=120,plot)
