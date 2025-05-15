@@ -9,13 +9,13 @@ def run_gui():
     print("🖥️ Launching GUI mode...")
     OptionGUI()
 
-def run_cli(config=None, steps=None):
+def run_cli(config=None, steps=None, plot =None):
     print("🧬 Running standard simulation...")
     if config:
         opts = load_options_from_json(config)
     else:
         opts, steps = load_options_from_cli()
-    simulate(opts, steps or 120)
+    simulate(opts, steps or 120, plot)
 
 def run_sweep(param, values, steps):
     print(f"🧪 Running parameter sweep on '{param}'")
