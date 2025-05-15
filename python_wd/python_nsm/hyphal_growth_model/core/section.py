@@ -101,7 +101,6 @@ class Section:
                 )
                 print(f"🌀 Curvature blended into branch direction: strength={self.options.curvature_branch_bias:.2f}")
 
-
             # 🧠 Memory-based bias
             if self.options.direction_memory_blend > 0:
                 rotated_orientation = (
