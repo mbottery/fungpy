@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 from core.options import Options
 from core.point import MPoint
-from main import step_simulation, setup_simulation, generate_outputs
+from main import step_simulation, setup_simulation, generate_plots, generate_outputdata
 
 class OptionGUI:
     def __init__(self):
@@ -257,7 +257,8 @@ class OptionGUI:
                 break
         self.running = False
         print("✅ Simulation complete")
-        self.root.after_idle(lambda: generate_outputs(self.mycel, self.components, output_dir=self.output_folder.get()))
+        self.root.after_idle(lambda: generate_outputdata(self.mycel, self.components, output_dir=self.output_folder.get()))
+        self.root.after_idle(lambda: generate_plots(self.mycel, self.components, output_dir=self.output_folder.get()))
         self.draw_3d_mycelium()
 
 if __name__ == "__main__":
