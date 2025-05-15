@@ -130,7 +130,7 @@ def step_simulation(mycel, components, step):
     
     print(mycel)
 
-def generate_plot(mycel, components, output_dir="outputs"):
+def generate_plots(mycel, components, output_dir="outputs"):
 
     grid = components["grid"]
     stats = components["stats"]
