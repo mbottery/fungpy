@@ -227,11 +227,11 @@ def simulate(opts,plot, steps=120):
     print(f"📂 Saving outputs to: {output_dir}")
     os.makedirs(output_dir, exist_ok=True)
     generate_outputdata(mycel, components, output_dir=output_dir)
-    if plot:
+    if plot == 'True':
         generate_plots(mycel, components, output_dir=output_dir)
     
     
 
 if __name__ == "__main__":
     opts = load_options_from_json("configs/example.json")
-    simulate(opts, steps=120)
+    simulate(opts, steps=120,plot = 'True')
